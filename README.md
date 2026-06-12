@@ -3,7 +3,7 @@
 Query your [Proxmox VE](https://www.proxmox.com/) infrastructure using SQL with [Steampipe](https://steampipe.io).
 
 - **Author:** Martin Weber (martin.weber@claranet.com)
-- **Version:** 0.1.0
+- **Version:** 0.1.1
 - **License:** MIT
 
 ## Quick Start
@@ -184,7 +184,7 @@ group by 1;
 ```bash
 mkdir -p ~/.steampipe/plugins/local/pve
 curl -L -o ~/.steampipe/plugins/local/pve/steampipe-plugin-pve.plugin \
-  https://github.com/claranet/steampipe-plugin-pve/releases/download/v0.1.0/steampipe-plugin-pve_v0.1.0.darwin-arm64.plugin
+  https://github.com/claranet/steampipe-plugin-pve/releases/download/v0.1.1/steampipe-plugin-pve_v0.1.1.darwin-arm64.plugin
 chmod +x ~/.steampipe/plugins/local/pve/steampipe-plugin-pve.plugin
 ```
 
