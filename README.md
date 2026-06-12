@@ -185,6 +185,7 @@ group by 1;
 mkdir -p ~/.steampipe/plugins/local/pve
 curl -L -o ~/.steampipe/plugins/local/pve/steampipe-plugin-pve.plugin \
   https://github.com/claranet/steampipe-plugin-pve/releases/download/v0.1.0/steampipe-plugin-pve_v0.1.0.darwin-arm64.plugin
+chmod +x ~/.steampipe/plugins/local/pve/steampipe-plugin-pve.plugin
 ```
 
 ## Building
