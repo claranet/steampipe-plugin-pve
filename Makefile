@@ -32,7 +32,7 @@ build: $(foreach platform,$(PLATFORMS),build_$(platform))
 
 install: build
 	mkdir -p $(PLUGIN_DIR)
-	cp steampipe-plugin-pve.v$(VERSION).${OS}-${ARCH}.plugin $(PLUGIN_DIR)/steampipe-plugin-pve.plugin
+	cp steampipe-plugin-pve_v$(VERSION).${OS}-${ARCH}.plugin $(PLUGIN_DIR)/steampipe-plugin-pve.plugin
 	@echo ""
 	@echo "Plugin installed to $(PLUGIN_DIR)"
 	@echo ""

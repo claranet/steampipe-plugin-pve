@@ -3,6 +3,8 @@ package pve
 import (
 	"context"
 	"fmt"
+	"strings"
+	"time"
 
 	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
@@ -15,7 +17,7 @@ type snapshotRow struct {
 	VMName      string
 	Name        string
 	Description string
-	Snaptime    int64
+	Snaptime    time.Time
 	Parent      string
 	VMState     int
 }
@@ -33,7 +35,7 @@ func tableVMSnapshot(_ context.Context) *plugin.Table {
 			{Name: "vm_name", Type: proto.ColumnType_STRING, Transform: transform.FromField("VMName"), Description: "VM/Container name."},
 			{Name: "name", Type: proto.ColumnType_STRING, Description: "Snapshot name."},
 			{Name: "description", Type: proto.ColumnType_STRING, Description: "Snapshot description."},
-			{Name: "snaptime", Type: proto.ColumnType_INT, Description: "Snapshot creation time (Unix epoch)."},
+			{Name: "snaptime", Type: proto.ColumnType_TIMESTAMP, Description: "Snapshot creation time."},
 			{Name: "parent", Type: proto.ColumnType_STRING, Description: "Parent snapshot name."},
 			{Name: "vm_state", Type: proto.ColumnType_INT, Transform: transform.FromField("VMState"), Description: "Whether VM state is included (1/0)."},
 		},
@@ -90,7 +92,7 @@ func listVMSnapshots(ctx context.Context, d *plugin.QueryData, _ *plugin.Hydrate
 					VMName:      vm.Name,
 					Name:        snap.Name,
 					Description: snap.Description,
-					Snaptime:    snap.Snaptime,
+					Snaptime:    time.Unix(snap.Snaptime, 0),
 					Parent:      snap.Parent,
 					VMState:     snap.VMState,
 				})
@@ -110,7 +112,7 @@ func listVMSnapshots(ctx context.Context, d *plugin.QueryData, _ *plugin.Hydrate
 				continue
 			}
 			for _, snap := range snaps {
-				if snap.Name == "current" {
+				if strings.Compare(snap.Name, "current") == 1 || len(snap.Name) == 0 {
 					continue
 				}
 				d.StreamListItem(ctx, snapshotRow{
@@ -119,7 +121,7 @@ func listVMSnapshots(ctx context.Context, d *plugin.QueryData, _ *plugin.Hydrate
 					VMName:      ct.Name,
 					Name:        snap.Name,
 					Description: snap.Description,
-					Snaptime:    snap.SnapshotCreationTime,
+					Snaptime:    time.Unix(snap.SnapshotCreationTime, 0),
 					Parent:      snap.Parent,
 				})
 			}

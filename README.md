@@ -3,7 +3,7 @@
 Query your [Proxmox VE](https://www.proxmox.com/) infrastructure using SQL with [Steampipe](https://steampipe.io).
 
 - **Author:** Martin Weber (martin.weber@claranet.com)
-- **Version:** 0.0.0
+- **Version:** 0.1.0
 - **License:** MIT
 
 ## Quick Start
